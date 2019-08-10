@@ -1,4 +1,4 @@
-# CLI configuration:
+# CLI router configuration:
 
 ## Configuring password
 ```bash
@@ -32,6 +32,7 @@ uci commit
 /etc/init.d/network restart
 ```
 ## Configure OpenVPN
+### Base configuration
 [OpenWRT OpenVPN](https://openwrt.org/docs/guide-user/services/vpn/openvpn/client)
 ```bash
 opkg update
@@ -89,4 +90,39 @@ scp client.key root@192.168.1.1:/etc/openvpn/
 scp ca.crt root@192.168.1.1:/etc/openvpn/
 ssh root@192.168.1.1
 service openvpn restart
+```
+### Configure OpenVPN Killswitch
+[OpenVPN KillSwitch](https://openwrt.org/docs/guide-user/services/vpn/openvpn/extra)
+```bash
+uci -q delete firewall.vpn
+uci set firewall.vpn="zone"
+uci set firewall.vpn.name="vpn"
+uci set firewall.vpn.input="REJECT"
+uci set firewall.vpn.output="ACCEPT"
+uci set firewall.vpn.forward="REJECT"
+uci set firewall.vpn.masq="1"
+uci set firewall.vpn.mtu_fix="1"
+uci add_list firewall.vpn.device="tun0"
+uci del_list firewall.@zone[1].device="tun0"
+uci -q delete firewall.lan2vpn
+uci set firewall.lan2vpn="forwarding"
+uci set firewall.lan2vpn.src="lan"
+uci set firewall.lan2vpn.dest="vpn"
+uci set firewall.@forwarding[0].enabled="0"
+uci commit firewall
+service firewall restart
+ 
+cat << "EOF" > /etc/openvpn/killswitch.sh
+#!/bin/sh
+if pgrep openvpn
+then
+uci set firewall.lan2wan.enabled="1"
+/etc/init.d/openvpn stop &
+else
+uci set firewall.lan2wan.enabled="0"
+/etc/init.d/openvpn start &
+fi
+/etc/init.d/firewall restart &
+EOF
+chmod "u=rwx,g=rx,o=rx" /etc/openvpn/killswitch.sh
 ```
