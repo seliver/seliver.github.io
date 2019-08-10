@@ -127,7 +127,7 @@ EOF
 chmod "u=rwx,g=rx,o=rx" /etc/openvpn/killswitch.sh
 ```
 
-## [Access DSL router through this one](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/)
+## [Access DSL router through this one](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/) - Not certain yet
 ```bash
 uci del network.wan.proto
 uci set network.wan.proto='static'
