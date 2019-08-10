@@ -1,4 +1,4 @@
-# CLI router configuration:
+# CLI router configuration
 
 ## Configure router password
 ```bash
@@ -32,8 +32,8 @@ uci commit
 /etc/init.d/network restart
 ```
 ## Configure OpenVPN
-### Base configuration
-[OpenWRT OpenVPN](https://openwrt.org/docs/guide-user/services/vpn/openvpn/client)
+### [Base configuration](https://openwrt.org/docs/guide-user/services/vpn/openvpn/client)
+
 ```bash
 opkg update
 opkg install openvpn-openssl
@@ -91,8 +91,7 @@ scp ca.crt root@192.168.1.1:/etc/openvpn/
 ssh root@192.168.1.1
 service openvpn restart
 ```
-### Configure OpenVPN Killswitch
-[OpenVPN KillSwitch](https://openwrt.org/docs/guide-user/services/vpn/openvpn/extra)
+### [Configure OpenVPN Killswitch](https://openwrt.org/docs/guide-user/services/vpn/openvpn/extra)
 ```bash
 uci -q delete firewall.vpn
 uci set firewall.vpn="zone"
