@@ -1,4 +1,4 @@
-# H1 CLI configuration:
+# CLI configuration:
 
 ## Configuring password
 ```bash
