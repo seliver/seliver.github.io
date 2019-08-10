@@ -1,6 +1,6 @@
 # CLI router configuration:
 
-## Configuring password
+## Configure router password
 ```bash
 ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.1.1" # removing old entry after a firmware upgrade
 passwd
