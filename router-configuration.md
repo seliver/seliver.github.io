@@ -126,3 +126,21 @@ fi
 EOF
 chmod "u=rwx,g=rx,o=rx" /etc/openvpn/killswitch.sh
 ```
+
+## [Access DSL router through this one](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/)
+```bash
+uci del network.wan.proto
+uci set network.wan.proto='static'
+uci set network.wan.ipaddr='ip_in_dsl_router_ip_pool'
+uci set network.wan.netmask='255.255.255.0'
+uci set network.wan.metric='0'
+
+uci add luci ifstate # =cfg090295
+uci set luci.@ifstate[-1].interface='wan'
+uci set luci.@ifstate[-1].ifname='eth0.2'
+uci set luci.@ifstate[-1].bridge='false'
+uci commit
+/etc/init.d/network restart
+```
+*Don't forget to drop ip_in_dsl_router_ip_pool address in DSL router* 
+*Reboot router for changes to take effect*
