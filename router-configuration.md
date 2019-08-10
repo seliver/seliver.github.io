@@ -143,4 +143,5 @@ uci commit
 /etc/init.d/network restart
 ```
 *Don't forget to drop ip_in_dsl_router_ip_pool address in DSL router* 
+
 *Reboot router for changes to take effect*
