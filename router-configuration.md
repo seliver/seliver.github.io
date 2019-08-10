@@ -127,5 +127,5 @@ EOF
 chmod "u=rwx,g=rx,o=rx" /etc/openvpn/killswitch.sh
 ```
 
-## [Access DSL router through this one](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/)
+## [Accessing your modem from OpenWRT Router](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/)
 ### If using VPN like in our case, the only thing to be done differently is the Firewall Assignment, which has to be lan.
